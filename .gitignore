@@ -21,6 +21,7 @@
 *.dylib
 
 # Executables
+rwc-hashmap
 *.exe
 *.out
 *.app
@@ -30,3 +31,9 @@
 
 # Debug files
 *.dSYM/
+
+#Eclipse files
+.settings
+.cproject
+.project
+Default
