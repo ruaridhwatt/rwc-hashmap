@@ -1,4 +1,6 @@
 /*
+ Copyright (C) 2015 Ruaridh Watt
+
  ============================================================================
  Name        : llist.h
  Author      : Ruaridh Watt dv12rwt
