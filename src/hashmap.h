@@ -1,8 +1,5 @@
 /*
- * hashmap.h
- *
- *  Created on: May 10, 2015
- *      Author: ruaridh
+ * Copyright (C) 2015 Ruaridh Watt
  */
 
 #ifndef SRC_HASHMAP_H_
