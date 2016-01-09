@@ -14,7 +14,7 @@ typedef struct _entry {
 } entry;
 
 typedef struct _hashmap {
-	llist **llist_array; // array of entry lists.
+	llist **llist_array; /* array of entry lists. */
 	int array_size;
 	int nr_entries;
 	unsigned long (*hash_func)(void *);

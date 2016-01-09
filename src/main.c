@@ -58,12 +58,14 @@ void entry_free_func(void *data) {
 }
 
 int main(void) {
+	entry *en;
+	char *key, *value;
 	int res;
+
 	hashmap *hm = hashmap_empty(20, string_hash_function, entry_free_func);
 	if (hm == NULL) {
 		return EXIT_FAILURE;
 	}
-	entry *en;
 	printf("Inserting test entries...\n");
 	en = create_entry("cat", "goes meow");
 	res = hashmap_put(en, hm);
@@ -97,8 +99,8 @@ int main(void) {
 	}
 
 	printf("\nTest Get...\n");
-	char *key = "dog";
-	char *value = (char *) hashmap_get(key, strlen(key) + 1, hm);
+	key = "dog";
+	value = (char *) hashmap_get(key, strlen(key) + 1, hm);
 	if (value) {
 		printf("Success: %s %s\n", key, value);
 	} else {

@@ -40,6 +40,8 @@ hashmap *hashmap_empty(int initialSize, unsigned long (*hashFunc)(void *), void 
 
 int hashmap_put(entry *entry, hashmap *hashmap) {
 	unsigned long index;
+	element *pos;
+
 	llist *list = __get_list(entry->key, entry->key_size, hashmap, &index);
 	if (!list) {
 		hashmap->llist_array[index] = llist_empty(hashmap->entry_free_func);
@@ -50,7 +52,7 @@ int hashmap_put(entry *entry, hashmap *hashmap) {
 	} else if (__remove(entry->key, entry->key_size, list)) {
 		hashmap->nr_entries--;
 	}
-	element *pos = llist_first(list);
+	pos = llist_first(list);
 	pos = llist_insert(pos, list, entry);
 	if (!pos) {
 		return EXIT_FAILURE;
@@ -103,11 +105,14 @@ llist *__get_list(void *key, size_t key_size, hashmap *hashmap, unsigned long *i
 }
 
 element *__get_position(void *key, size_t key_size, llist *list) {
+	element *pos;
+	entry *en;
+
 	if (!list) {
 		return NULL;
 	}
-	element *pos = llist_first(list);
-	entry *en = (entry *) llist_inspect(pos);
+	pos = llist_first(list);
+	en = (entry *) llist_inspect(pos);
 	while (en != NULL && (en->key_size != key_size || memcmp(key, en->key, key_size))) {
 		pos = llist_next(pos);
 		en = (entry *) llist_inspect(pos);
@@ -116,16 +121,21 @@ element *__get_position(void *key, size_t key_size, llist *list) {
 }
 
 entry *__get_entry(void *key, size_t key_size, hashmap *hashmap) {
-	llist *list = __get_list(key, key_size, hashmap, NULL);
+	llist *list;
+	element *pos;
+
+	list = __get_list(key, key_size, hashmap, NULL);
 	if (!list) {
 		return NULL;
 	}
-	element *pos = __get_position(key, key_size, list);
+	pos = __get_position(key, key_size, list);
 	return (entry *) llist_inspect(pos);
 }
 
 int __remove(void *key, size_t key_size, llist *list) {
-	element *pos = __get_position(key, key_size, list);
+	element *pos;
+
+	pos = __get_position(key, key_size, list);
 	if (llist_isEnd(pos)) {
 		return 0;
 	}

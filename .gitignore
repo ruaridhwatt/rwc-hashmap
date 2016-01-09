@@ -21,7 +21,7 @@
 *.dylib
 
 # Executables
-rwc-hashmap
+bin/
 *.exe
 *.out
 *.app
